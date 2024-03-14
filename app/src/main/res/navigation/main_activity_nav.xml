@@ -21,7 +21,11 @@
         android:id="@+id/detailFragment"
         android:name="com.sermedkerim.bitirmeprojesi.ui.fragment.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="food"
+            app:argType="com.sermedkerim.bitirmeprojesi.data.entity.Food" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.sermedkerim.bitirmeprojesi.ui.fragment.CartFragment"
