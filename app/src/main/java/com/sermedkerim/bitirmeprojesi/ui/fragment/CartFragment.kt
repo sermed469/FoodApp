@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sermedkerim.bitirmeprojesi.databinding.FragmentCartBinding
+import com.sermedkerim.bitirmeprojesi.ui.adapter.CartAdapter
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +22,14 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(LayoutInflater.from(requireContext()),container,false)
+
+        binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
+
+        viewModel.cardFoods.observe(viewLifecycleOwner){
+            val cartAdapter = CartAdapter(it,viewModel)
+            binding.recyclerViewCart.adapter = cartAdapter
+        }
+
         return binding.root
     }
 
@@ -27,5 +37,10 @@ class CartFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val temp : CartViewModel by viewModels()
         viewModel = temp
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getCartFoods()
     }
 }

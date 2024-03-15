@@ -55,11 +55,11 @@ class DetailFragment : Fragment() {
 
         binding.buttonAddFoodToCart.setOnClickListener {
             Log.e("Sepete Ekle",binding.autoCompleteTextViewDetail.text.toString())
-            //viewModel.addFoodToCart(food,binding.autoCompleteTextViewDetail.text.toString().toInt())
+            viewModel.addFoodToCart(food,binding.autoCompleteTextViewDetail.text.toString().toInt())
             it.findNavController().navigateUp()
             Snackbar.make(it,"Yemek sepete eklendi",Snackbar.LENGTH_SHORT)
                 .setTextColor(Color.WHITE)
-                .setBackgroundTint(Color.GREEN)
+                .setBackgroundTint(Color.parseColor("#fec429"))
                 .show()
         }
 

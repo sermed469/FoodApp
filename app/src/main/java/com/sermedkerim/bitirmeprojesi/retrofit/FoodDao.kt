@@ -1,6 +1,7 @@
 package com.sermedkerim.bitirmeprojesi.retrofit
 
 import com.sermedkerim.bitirmeprojesi.data.entity.CRUDResponse
+import com.sermedkerim.bitirmeprojesi.data.entity.CartFoodResponse
 import com.sermedkerim.bitirmeprojesi.data.entity.FoodResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -17,4 +18,12 @@ interface FoodDao {
                               @Field("yemek_fiyat") foodPrice:Int,
                               @Field("yemek_siparis_adet") numberOfFoods:Int,
                               @Field("kullanici_adi") username:String):CRUDResponse
+    @POST("yemekler/sepettekiYemekleriGetir.php")
+    @FormUrlEncoded
+    suspend fun getCartFoods(@Field("kullanici_adi") username: String):CartFoodResponse
+
+    @POST("yemekler/sepettenYemekSil.php")
+    @FormUrlEncoded
+    suspend fun deleteCartFood(@Field("sepet_yemek_id") id:Int,
+                               @Field("kullanici_adi") username:String):CRUDResponse
 }

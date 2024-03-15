@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sermedkerim.bitirmeprojesi.R
 import com.sermedkerim.bitirmeprojesi.databinding.FragmentMainPageBinding
 import com.sermedkerim.bitirmeprojesi.ui.adapter.FoodAdapter
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.MainPageViewModel
@@ -29,6 +31,10 @@ class MainPageFragment : Fragment() {
         viewModel.foodList.observe(viewLifecycleOwner){
             val foodAdapter = FoodAdapter(it)
             binding.recyclerViewAllFoodList.adapter = foodAdapter
+        }
+
+        binding.floatingActionButtonGoToCart.setOnClickListener {
+            it.findNavController().navigate(R.id.navigationFromMainPageToCart)
         }
 
         return binding.root
