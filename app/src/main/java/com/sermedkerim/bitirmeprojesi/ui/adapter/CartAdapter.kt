@@ -30,8 +30,8 @@ class CartAdapter(var cartFoodList: List<CartFood>,var viewModel:CartViewModel) 
         Glide.with(binding.root.context).load(url).override(512,512).into(binding.imageViewCartFoodCardItem)
 
         binding.textViewCardFoodNameCardItem.text = cartFood.name
-        binding.textViewCartFoodPriceCardItem.text = cartFood.price.toString()
-        binding.textViewNumberOfFoodsCartCardItem.text = cartFood.number.toString()
+        binding.textViewCartFoodPriceCardItem.text = "${cartFood.price.toString()} TL"
+        binding.textViewNumberOfFoodsCartCardItem.text = "Adet: ${cartFood.number.toString()}"
 
         binding.imageViewDeleteCartFoodCardItem.setOnClickListener {
 
@@ -41,7 +41,7 @@ class CartAdapter(var cartFoodList: List<CartFood>,var viewModel:CartViewModel) 
 
                 }
                 .setPositiveButton("Evet"){ dialog,which ->
-                    viewModel.deleteCartFood(cartFood.id)
+                    viewModel.deleteCartFood(cartFood.id,cartFood.name)
                     Snackbar.make(it,"Yemek sepetten silindi",Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(Color.parseColor("#fec429"))
                         .setTextColor(Color.WHITE)

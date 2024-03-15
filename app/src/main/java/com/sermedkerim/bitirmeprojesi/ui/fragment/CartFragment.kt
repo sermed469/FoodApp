@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sermedkerim.bitirmeprojesi.databinding.FragmentCartBinding
@@ -26,8 +27,13 @@ class CartFragment : Fragment() {
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.cardFoods.observe(viewLifecycleOwner){
-            val cartAdapter = CartAdapter(it,viewModel)
-            binding.recyclerViewCart.adapter = cartAdapter
+            if(it.isEmpty()){
+                binding.recyclerViewCart.visibility = View.GONE
+                binding.textViewCartNoFoodInCart.visibility = View.VISIBLE
+            }else{
+                val cartAdapter = CartAdapter(it,viewModel)
+                binding.recyclerViewCart.adapter = cartAdapter
+            }
         }
 
         return binding.root

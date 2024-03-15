@@ -22,9 +22,9 @@ class CartViewModel @Inject constructor(var foodRepository: FoodRepository) : Vi
         }
     }
 
-    fun deleteCartFood(id:Int){
+    fun deleteCartFood(id:Int,name:String){
         CoroutineScope(Dispatchers.Main).launch {
-            foodRepository.deleteCartFood(id)
+            foodRepository.deleteCartFood(id,name)
             getCartFoods()
         }
     }
