@@ -39,20 +39,6 @@ class DetailFragment : Fragment() {
         binding.textViewFoodNameDetail.text = food.name
         binding.textViewFoodPriceDetail.text = "${food.price.toString()} TL"
 
-        val numberOfFoods = ArrayList<String>()
-        numberOfFoods.add("1")
-        numberOfFoods.add("2")
-        numberOfFoods.add("3")
-        numberOfFoods.add("4")
-        numberOfFoods.add("5")
-        numberOfFoods.add("6")
-        numberOfFoods.add("7")
-        numberOfFoods.add("8")
-        numberOfFoods.add("9")
-
-        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.simple_list_item_1,numberOfFoods)
-        binding.autoCompleteTextViewDetail.setAdapter(arrayAdapter)
-
         binding.buttonAddFoodToCart.setOnClickListener {
             Log.e("Sepete Ekle",binding.autoCompleteTextViewDetail.text.toString())
             viewModel.addFoodToCart(food,binding.autoCompleteTextViewDetail.text.toString().toInt())
