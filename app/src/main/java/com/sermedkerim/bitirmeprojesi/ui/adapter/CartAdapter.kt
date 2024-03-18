@@ -53,7 +53,7 @@ class CartAdapter(var cartFoodList: List<CartFood>,var viewModel:CartViewModel) 
                 .setPositiveButton("Evet"){ dialog,which ->
                     viewModel.deleteCartFood(cartFood.id,cartFood.name)
                     Snackbar.make(it,"Yemek sepetten silindi",Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(Color.parseColor("#fec429"))
+                        .setBackgroundTint(it.context.getColor(R.color.colorSecondary))
                         .setTextColor(Color.WHITE)
                         .show()
                 }
