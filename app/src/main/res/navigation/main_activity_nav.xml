@@ -13,9 +13,6 @@
         <action
             android:id="@+id/navigationFromMainPageToDetail"
             app:destination="@id/detailFragment" />
-        <action
-            android:id="@+id/navigationFromMainPageToCart"
-            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -31,4 +28,13 @@
         android:name="com.sermedkerim.bitirmeprojesi.ui.fragment.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.sermedkerim.bitirmeprojesi.ui.fragment.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/navigationFromFavouritesToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

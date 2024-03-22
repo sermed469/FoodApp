@@ -45,4 +45,10 @@ class MainPageViewModel @Inject constructor(var foodRepository: FoodRepository) 
           favouriteFoods.value = foodRepository.getFavouriteFoods()
         }
     }
+
+    fun search(searchString: String){
+        CoroutineScope(Dispatchers.Main).launch {
+            foodList.value = foodRepository.search(searchString)
+        }
+    }
 }

@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="appColor">#fec429</color>
     <color name="colorSecondary">#d74200</color>
+    <color name="activeIndicatorColor">#33FEC429</color>
 </resources>

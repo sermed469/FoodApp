@@ -14,4 +14,5 @@ class FoodRepository(var foodDataSource: FoodDataSource) {
     suspend fun addFavouriteFood(foodName: String) = foodDataSource.addFavouriteFood(foodName)
     suspend fun deleteFavouriteFood(foodName: String) = foodDataSource.deleteFavouriteFood(foodName)
     suspend fun getFavouriteFoods():List<Food> = foodDataSource.getFavouriteFoods()
+    suspend fun search(searchString: String):List<Food> = foodDataSource.search(searchString)
 }

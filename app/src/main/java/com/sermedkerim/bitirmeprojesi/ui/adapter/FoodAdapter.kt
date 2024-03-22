@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,7 +25,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel)  : RecyclerView.Adapter<FoodAdapter.FoodCardItemViewHolder>() {
+class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel,var viewLifecycleOwner: LifecycleOwner)  : RecyclerView.Adapter<FoodAdapter.FoodCardItemViewHolder>() {
     inner class FoodCardItemViewHolder(var binding: FoodCardItemBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -38,10 +39,13 @@ class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel)  : 
         val binding = holder.binding
         val food = foodList.get(position)
 
-        if(viewModel.favouriteFoods.value != null){
-            if(viewModel.favouriteFoods.value!!.find { fvFood: Food ->  fvFood.name == food.name} != null){
-                binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.like_symbol)
-                binding.toogleButttonAddFovourite.isChecked = true
+        viewModel.favouriteFoods.observe(viewLifecycleOwner){
+            if(it != null){
+                if(it.find { fvFood: Food ->  fvFood.name == food.name} != null){
+                    Log.e("Find Fav Adapter","${position}-${food.name}")
+                    binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.like_symbol)
+                    binding.toogleButttonAddFovourite.isChecked = true
+                }
             }
         }
 
@@ -60,47 +64,25 @@ class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel)  : 
         var snackbarColor = R.color.appColor
 
         binding.toogleButttonAddFovourite.addOnCheckedChangeListener { materialButton, b ->
+            materialButton.setOnClickListener {
+                if(b){
+                    materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.like_symbol)
+                    message = "Yemek favorilere eklendi"
+                    snackbarColor = R.color.appColor
+                    viewModel.addFavouriteFood(food.name)
+                }else{
+                    materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.favourite)
+                    message = "Yemek favorilerden silindi"
+                    snackbarColor = R.color.colorSecondary
+                    viewModel.deleteFavouriteFood(food.name)
+                }
 
-            if(b){
-                materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.like_symbol)
-                message = "Yemek favorilere eklendi"
-                snackbarColor = R.color.appColor
-
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    val favouriteFoods = appPref.getFavourite()
-//                    if(favouriteFoods != null){
-//                        favouriteFoods.plus(food.name)
-//                        appPref.saveFavourite(favouriteFoods.plus(food.name))
-//                    }else{
-//                        val newFavouriteFoods = HashSet<String>()
-//                        newFavouriteFoods.add(food.name)
-//                        appPref.saveFavourite(newFavouriteFoods)
-//                    }
-//                }
-
-                viewModel.addFavouriteFood(food.name)
-            }else{
-                materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.favourite)
-                message = "Yemek favorilerden silindi"
-                snackbarColor = R.color.colorSecondary
-
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    val favouriteFoods = appPref.getFavourite()
-//                    if(favouriteFoods != null){
-//                        favouriteFoods.minus(food.name)
-//                        appPref.deleteFavourite()
-//                        appPref.saveFavourite(favouriteFoods.minus(food.name))
-//                    }else{
-//                    }
-//                }
-
-                viewModel.deleteFavouriteFood(food.name)
+                Snackbar.make(materialButton,message,Snackbar.LENGTH_SHORT)
+                    .setTextColor(Color.WHITE)
+                    .setBackgroundTint(materialButton.context.getColor(snackbarColor))
+                    .show()
             }
 
-            Snackbar.make(materialButton,message,Snackbar.LENGTH_SHORT)
-                .setTextColor(Color.WHITE)
-                .setBackgroundTint(materialButton.context.getColor(snackbarColor))
-                .show()
         }
     }
 

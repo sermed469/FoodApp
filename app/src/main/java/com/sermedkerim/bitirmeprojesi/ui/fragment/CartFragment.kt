@@ -1,14 +1,11 @@
 package com.sermedkerim.bitirmeprojesi.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sermedkerim.bitirmeprojesi.databinding.FragmentCartBinding
@@ -44,7 +41,7 @@ class CartFragment : Fragment() {
                 binding.root.addView(binding_nofood.root)
 
             }else{
-                val cartAdapter = CartAdapter(it,viewModel)
+                val cartAdapter = CartAdapter(it,viewModel,requireActivity())
                 binding.recyclerViewCart.adapter = cartAdapter
             }
         }

@@ -77,6 +77,7 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
                     Log.e("Fav",f)
                 }
             }else{
+                Log.e("Fav","No Food")
             }
             return@withContext favouriteFoodList
     }
@@ -85,7 +86,6 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
         withContext(Dispatchers.IO){
             val favouriteFoods = appPref.getFavourite()
             if(favouriteFoods != null){
-                favouriteFoods.plus(foodName)
                 appPref.saveFavourite(favouriteFoods.plus(foodName))
             }else{
                 val newFavouriteFoods = HashSet<String>()
@@ -104,4 +104,16 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
             }else{
             }
         }
-    }
+
+   suspend fun search(searchString: String):List<Food>
+   = withContext(Dispatchers.IO){
+       var foodList = listOf<Food>()
+       try {
+           foodList = foodDao.getAllFoods().foodList
+       }catch (e:Exception){
+
+       }
+
+       return@withContext foodList.filter { food: Food -> food.name.lowercase().startsWith(searchString)   }
+   }
+}

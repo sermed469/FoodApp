@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
@@ -35,13 +36,21 @@ class MainPageFragment : Fragment() {
         binding.recyclerViewAllFoodList.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.foodList.observe(viewLifecycleOwner){
-            val foodAdapter = FoodAdapter(it,viewModel)
+            val foodAdapter = FoodAdapter(it,viewModel,viewLifecycleOwner)
             binding.recyclerViewAllFoodList.adapter = foodAdapter
         }
 
-        binding.floatingActionButtonGoToCart.setOnClickListener {
-            it.findNavController().navigate(R.id.navigationFromMainPageToCart)
-        }
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(p0: String): Boolean {
+                viewModel.search(p0)
+                return true
+            }
+
+            override fun onQueryTextSubmit(p0: String): Boolean {
+                viewModel.search(p0)
+                return true
+            }
+        })
 
         return binding.root
     }
@@ -52,8 +61,8 @@ class MainPageFragment : Fragment() {
         viewModel = temp
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getFavouriteFoods()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        viewModel.getFavouriteFoods()
+//    }
 }

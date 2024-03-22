@@ -28,5 +28,4 @@
         <item name="android:padding">0dp</item>
         <item name="rippleColor">@color/mtrl_btn_ripple_color</item>
     </style>
-
 </resources>
