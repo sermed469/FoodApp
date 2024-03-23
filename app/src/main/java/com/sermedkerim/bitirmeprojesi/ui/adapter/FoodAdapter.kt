@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -25,7 +26,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel,var viewLifecycleOwner: LifecycleOwner)  : RecyclerView.Adapter<FoodAdapter.FoodCardItemViewHolder>() {
+class FoodAdapter(var foodList: List<Food>,var favList: List<Food>?,var viewModel: MainPageViewModel,var viewLifecycleOwner: LifecycleOwner)  : RecyclerView.Adapter<FoodAdapter.FoodCardItemViewHolder>() {
     inner class FoodCardItemViewHolder(var binding: FoodCardItemBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -39,10 +40,14 @@ class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel,var 
         val binding = holder.binding
         val food = foodList.get(position)
 
+        if(position > foodList.size / 2){
+            binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.favourite)
+            binding.toogleButttonAddFovourite.isChecked = false
+        }
+
         viewModel.favouriteFoods.observe(viewLifecycleOwner){
             if(it != null){
                 if(it.find { fvFood: Food ->  fvFood.name == food.name} != null){
-                    Log.e("Find Fav Adapter","${position}-${food.name}")
                     binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.like_symbol)
                     binding.toogleButttonAddFovourite.isChecked = true
                 }
@@ -60,29 +65,16 @@ class FoodAdapter(var foodList: List<Food>,var viewModel: MainPageViewModel,var 
             it.findNavController().navigate(action)
         }
 
-        var message = "Yemek favorilere eklendi"
-        var snackbarColor = R.color.appColor
-
         binding.toogleButttonAddFovourite.addOnCheckedChangeListener { materialButton, b ->
             materialButton.setOnClickListener {
                 if(b){
                     materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.like_symbol)
-                    message = "Yemek favorilere eklendi"
-                    snackbarColor = R.color.appColor
                     viewModel.addFavouriteFood(food.name)
                 }else{
                     materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.favourite)
-                    message = "Yemek favorilerden silindi"
-                    snackbarColor = R.color.colorSecondary
                     viewModel.deleteFavouriteFood(food.name)
                 }
-
-                Snackbar.make(materialButton,message,Snackbar.LENGTH_SHORT)
-                    .setTextColor(Color.WHITE)
-                    .setBackgroundTint(materialButton.context.getColor(snackbarColor))
-                    .show()
             }
-
         }
     }
 

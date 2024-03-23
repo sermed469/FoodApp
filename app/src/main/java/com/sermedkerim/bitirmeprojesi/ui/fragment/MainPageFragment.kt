@@ -36,7 +36,7 @@ class MainPageFragment : Fragment() {
         binding.recyclerViewAllFoodList.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.foodList.observe(viewLifecycleOwner){
-            val foodAdapter = FoodAdapter(it,viewModel,viewLifecycleOwner)
+            val foodAdapter = FoodAdapter(it,viewModel.favouriteFoods.value,viewModel,viewLifecycleOwner)
             binding.recyclerViewAllFoodList.adapter = foodAdapter
         }
 
@@ -60,9 +60,4 @@ class MainPageFragment : Fragment() {
         val temp : MainPageViewModel by viewModels()
         viewModel = temp
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.getFavouriteFoods()
-//    }
 }

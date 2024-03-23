@@ -74,10 +74,8 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
             if(favouriteFoods != null){
                 for(f in favouriteFoods){
                     favouriteFoodList.add(allFoods.find { food: Food -> food.name == f }!!)
-                    Log.e("Fav",f)
                 }
             }else{
-                Log.e("Fav","No Food")
             }
             return@withContext favouriteFoodList
     }
@@ -98,10 +96,8 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
         withContext(Dispatchers.IO){
             val favouriteFoods = appPref.getFavourite()
             if(favouriteFoods != null){
-                favouriteFoods.minus(foodName)
                 appPref.deleteFavourite()
                 appPref.saveFavourite(favouriteFoods.minus(foodName))
-            }else{
             }
         }
 
@@ -113,7 +109,6 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
        }catch (e:Exception){
 
        }
-
        return@withContext foodList.filter { food: Food -> food.name.lowercase().startsWith(searchString)   }
    }
 }

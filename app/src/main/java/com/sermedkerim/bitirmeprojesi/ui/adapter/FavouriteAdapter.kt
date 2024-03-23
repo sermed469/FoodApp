@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.sermedkerim.bitirmeprojesi.R
+import com.sermedkerim.bitirmeprojesi.SharedViewModel
 import com.sermedkerim.bitirmeprojesi.data.entity.Food
 import com.sermedkerim.bitirmeprojesi.databinding.FoodCardItemBinding
 import com.sermedkerim.bitirmeprojesi.ui.fragment.FavouriteFragmentDirections
@@ -45,11 +48,19 @@ class FavouriteAdapter(var foodList: List<Food>, var viewModel: FavouriteViewMod
         }
 
         binding.toogleButttonAddFovourite.setOnClickListener {
-            viewModel.deleteFavouriteFood(food.name)
 
-            Snackbar.make(it,"Yemek favorilerden silindi", Snackbar.LENGTH_SHORT)
-                .setTextColor(Color.WHITE)
-                .setBackgroundTint(it.context.getColor(R.color.colorSecondary))
+            MaterialAlertDialogBuilder(binding.root.context,com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                .setMessage("Favorilerden silmek istediğinize emin misiniz?")
+                .setNegativeButton("Hayır"){ dialog,which ->
+                }
+                .setPositiveButton("Evet"){ dialog,which ->
+                    viewModel.deleteFavouriteFood(food.name)
+
+                    Snackbar.make(it,"Yemek favorilerden silindi", Snackbar.LENGTH_SHORT)
+                        .setTextColor(Color.WHITE)
+                        .setBackgroundTint(it.context.getColor(R.color.colorSecondary))
+                        .show()
+                }
                 .show()
         }
 }

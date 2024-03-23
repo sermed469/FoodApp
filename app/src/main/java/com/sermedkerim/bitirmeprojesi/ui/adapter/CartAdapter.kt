@@ -40,12 +40,9 @@ class CartAdapter(var cartFoodList: List<CartFood>,var viewModel:CartViewModel,v
             MaterialAlertDialogBuilder(binding.root.context,com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
                 .setMessage("Sepetten silmek istediğinize emin misiniz?")
                 .setNegativeButton("Hayır"){ dialog,which ->
-
                 }
                 .setPositiveButton("Evet"){ dialog,which ->
                     viewModel.deleteCartFood(cartFood.id,cartFood.name)
-
-                    //mainActivity.getMainActivityViewModel().getNumberOfFoods()
 
                     Snackbar.make(it,"Yemek sepetten silindi",Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(it.context.getColor(R.color.colorSecondary))

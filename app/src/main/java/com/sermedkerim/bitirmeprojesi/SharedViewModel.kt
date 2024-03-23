@@ -24,14 +24,6 @@ class SharedViewModel @Inject constructor(var foodRepository: FoodRepository) : 
         }
     }
 
-    fun addFoodToCart() {
-        if(numberofFoods.value != null){
-            numberofFoods.value = numberofFoods.value!! + 1
-        }else{
-            numberofFoods.value = 1
-        }
-    }
-
     fun deleteFoodFromCart() {
         if(numberofFoods.value != null){
             numberofFoods.value = numberofFoods.value!! - 1

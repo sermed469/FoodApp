@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var model:SharedViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,10 +41,9 @@ class MainActivity : AppCompatActivity() {
         val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.cartFragment)
         badge.backgroundColor = resources.getColor(R.color.colorSecondary)
 
-        val model = ViewModelProvider(this).get(SharedViewModel::class.java)
+        model = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         model.numberofFoods.observe(this){
-            Log.e("Badge",it.toString())
             if(it == 0){
                 badge.isVisible = false
                 badge.clearNumber()
