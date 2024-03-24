@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.Navigation
@@ -19,6 +20,7 @@ import com.sermedkerim.bitirmeprojesi.data.entity.Food
 import com.sermedkerim.bitirmeprojesi.databinding.FoodCardItemBinding
 import com.sermedkerim.bitirmeprojesi.ui.fragment.MainPageFragmentDirections
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.MainPageViewModel
+import com.sermedkerim.bitirmeprojesi.utils.navigate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,7 +64,7 @@ class FoodAdapter(var foodList: List<Food>,var favList: List<Food>?,var viewMode
 
         binding.root.setOnClickListener {
             val action = MainPageFragmentDirections.navigationFromMainPageToDetail(food)
-            it.findNavController().navigate(action)
+            Navigation.navigate(it,action)
         }
 
         binding.toogleButttonAddFovourite.addOnCheckedChangeListener { materialButton, b ->

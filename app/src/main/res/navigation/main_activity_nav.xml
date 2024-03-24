@@ -22,6 +22,9 @@
         <argument
             android:name="food"
             app:argType="com.sermedkerim.bitirmeprojesi.data.entity.Food" />
+        <action
+            android:id="@+id/navigationFromDetailPageToCartPage"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

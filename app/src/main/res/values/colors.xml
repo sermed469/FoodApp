@@ -5,4 +5,5 @@
     <color name="appColor">#fec429</color>
     <color name="colorSecondary">#d74200</color>
     <color name="activeIndicatorColor">#33FEC429</color>
+    <color name="detailPageColor">"#f8f6f5"</color>
 </resources>

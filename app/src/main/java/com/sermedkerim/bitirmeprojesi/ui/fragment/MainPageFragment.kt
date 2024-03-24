@@ -60,4 +60,9 @@ class MainPageFragment : Fragment() {
         val temp : MainPageViewModel by viewModels()
         viewModel = temp
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavouriteFoods()
+    }
 }

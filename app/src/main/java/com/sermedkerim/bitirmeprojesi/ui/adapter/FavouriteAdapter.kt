@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +21,7 @@ import com.sermedkerim.bitirmeprojesi.ui.fragment.FavouriteFragmentDirections
 import com.sermedkerim.bitirmeprojesi.ui.fragment.MainPageFragmentDirections
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.FavouriteViewModel
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.MainPageViewModel
+import com.sermedkerim.bitirmeprojesi.utils.navigate
 
 class FavouriteAdapter(var foodList: List<Food>, var viewModel: FavouriteViewModel)  : RecyclerView.Adapter<FavouriteAdapter.FoodCardItemViewHolder>() {
     inner class FoodCardItemViewHolder(var binding: FoodCardItemBinding) : RecyclerView.ViewHolder(binding.root){
@@ -44,7 +46,7 @@ class FavouriteAdapter(var foodList: List<Food>, var viewModel: FavouriteViewMod
 
         binding.root.setOnClickListener {
             val action = FavouriteFragmentDirections.navigationFromFavouritesToDetail(food)
-            it.findNavController().navigate(action)
+            Navigation.navigate(it,action)
         }
 
         binding.toogleButttonAddFovourite.setOnClickListener {

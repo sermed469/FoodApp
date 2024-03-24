@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.NavigationMenuItemView
 import com.google.android.material.navigation.NavigationBarView
 import com.sermedkerim.bitirmeprojesi.databinding.ActivityMainBinding
+import com.sermedkerim.bitirmeprojesi.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,17 +58,17 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mainPageFragment -> {
-                    navHostFragment.findNavController().navigate(R.id.mainPageFragment)
+                    Navigation.navigate(navHostFragment,R.id.mainPageFragment)
                     true
                 }
 
                 R.id.favouriteFragment -> {
-                    navHostFragment.findNavController().navigate(R.id.favouriteFragment)
+                    Navigation.navigate(navHostFragment,R.id.favouriteFragment)
                     true
                 }
 
                 R.id.cartFragment -> {
-                    navHostFragment.findNavController().navigate(R.id.cartFragment)
+                    Navigation.navigate(navHostFragment,R.id.cartFragment)
                     true
                 }
 
