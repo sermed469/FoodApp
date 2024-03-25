@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.sermedkerim.bitirmeprojesi.R
 import com.sermedkerim.bitirmeprojesi.SharedViewModel
 import com.sermedkerim.bitirmeprojesi.data.entity.Food
+import com.sermedkerim.bitirmeprojesi.databinding.FavCardItemBinding
 import com.sermedkerim.bitirmeprojesi.databinding.FoodCardItemBinding
 import com.sermedkerim.bitirmeprojesi.ui.fragment.FavouriteFragmentDirections
 import com.sermedkerim.bitirmeprojesi.ui.fragment.MainPageFragmentDirections
@@ -23,22 +24,22 @@ import com.sermedkerim.bitirmeprojesi.ui.viewmodel.FavouriteViewModel
 import com.sermedkerim.bitirmeprojesi.ui.viewmodel.MainPageViewModel
 import com.sermedkerim.bitirmeprojesi.utils.navigate
 
-class FavouriteAdapter(var foodList: List<Food>, var viewModel: FavouriteViewModel)  : RecyclerView.Adapter<FavouriteAdapter.FoodCardItemViewHolder>() {
-    inner class FoodCardItemViewHolder(var binding: FoodCardItemBinding) : RecyclerView.ViewHolder(binding.root){
+class FavouriteAdapter(var foodList: List<Food>, var viewModel: FavouriteViewModel)  : RecyclerView.Adapter<FavouriteAdapter.FavCardItemViewHolder>() {
+    inner class FavCardItemViewHolder(var binding: FavCardItemBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodCardItemViewHolder {
-        val binding = FoodCardItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return FoodCardItemViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavCardItemViewHolder {
+        val binding = FavCardItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return FavCardItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FoodCardItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavCardItemViewHolder, position: Int) {
         val binding = holder.binding
         val food = foodList.get(position)
 
         binding.textViewFoodNameCardItem.text = food.name
-        binding.textViewFoodPriceCardItem.text = "${food.price} TL"
+        binding.textViewFoodPriceCardItem.text = "${food.price} ₺"
         binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context, R.drawable.like_symbol)
 
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.imageName}"

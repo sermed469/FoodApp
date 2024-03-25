@@ -54,7 +54,7 @@ class DetailFragment : Fragment() {
         Glide.with(binding.root.context).load(url).override(512,512).into(binding.imageViewFoodDetail)
 
         binding.textViewFoodNameDetail.text = food.name
-        binding.textViewFoodPriceDetail.text = "${food.price} TL"
+        binding.textViewFoodPriceDetail.text = "${food.price} ₺"
 
         viewModel.numberOfFoods.observe(viewLifecycleOwner){
             binding.textViewNumberOfFoodDetailPage.text = it.toString()

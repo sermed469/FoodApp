@@ -43,7 +43,7 @@ class FoodAdapter(var foodList: List<Food>,var favList: List<Food>?,var viewMode
         val food = foodList.get(position)
 
         if(position > foodList.size / 2){
-            binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.favourite)
+            binding.toogleButttonAddFovourite.icon = ContextCompat.getDrawable(binding.root.context,R.drawable.fav_card)
             binding.toogleButttonAddFovourite.isChecked = false
         }
 
@@ -57,7 +57,7 @@ class FoodAdapter(var foodList: List<Food>,var favList: List<Food>?,var viewMode
         }
 
         binding.textViewFoodNameCardItem.text = food.name
-        binding.textViewFoodPriceCardItem.text = "${food.price} TL"
+        binding.textViewFoodPriceCardItem.text = "${food.price} ₺"
 
         val url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.imageName}"
         Glide.with(binding.root.context).load(url).override(512,512).into(binding.imageViewFoodCardItem)
@@ -73,7 +73,7 @@ class FoodAdapter(var foodList: List<Food>,var favList: List<Food>?,var viewMode
                     materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.like_symbol)
                     viewModel.addFavouriteFood(food.name)
                 }else{
-                    materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.favourite)
+                    materialButton.icon = ContextCompat.getDrawable(materialButton.context,R.drawable.fav_card)
                     viewModel.deleteFavouriteFood(food.name)
                 }
             }

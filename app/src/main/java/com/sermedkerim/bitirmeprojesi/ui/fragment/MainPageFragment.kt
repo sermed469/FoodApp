@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.sermedkerim.bitirmeprojesi.AppPref
 import com.sermedkerim.bitirmeprojesi.R
 import com.sermedkerim.bitirmeprojesi.databinding.FragmentMainPageBinding
@@ -33,9 +34,10 @@ class MainPageFragment : Fragment() {
     ): View? {
         binding = FragmentMainPageBinding.inflate(LayoutInflater.from(requireContext()),container,false)
 
-        binding.recyclerViewAllFoodList.layoutManager = LinearLayoutManager(requireContext())
+        //binding.recyclerViewAllFoodList.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.foodList.observe(viewLifecycleOwner){
+            binding.recyclerViewAllFoodList.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
             val foodAdapter = FoodAdapter(it,viewModel.favouriteFoods.value,viewModel,viewLifecycleOwner)
             binding.recyclerViewAllFoodList.adapter = foodAdapter
         }

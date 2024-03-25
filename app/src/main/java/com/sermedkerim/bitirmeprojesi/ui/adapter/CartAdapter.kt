@@ -33,7 +33,7 @@ class CartAdapter(var cartFoodList: List<CartFood>,var viewModel:CartViewModel,v
         Glide.with(binding.root.context).load(url).override(512,512).into(binding.imageViewCartFoodCardItem)
 
         binding.textViewCardFoodNameCardItem.text = cartFood.name
-        binding.textViewCartFoodPriceCardItem.text = "${cartFood.price.toString()} TL"
+        binding.textViewCartFoodPriceCardItem.text = "${cartFood.price.toString()} ₺"
         binding.textViewNumberOfFoodsCartCardItem.text = "Adet: ${cartFood.number.toString()}"
 
         binding.imageViewDeleteCartFoodCardItem.setOnClickListener {
