@@ -32,6 +32,9 @@ class CartFragment : Fragment() {
         viewModel.cardFoods.observe(viewLifecycleOwner){
             if(it.isEmpty()){
                 binding.recyclerViewCart.visibility = View.GONE
+                binding.textViewTotalPrice.visibility = View.GONE
+                binding.buttonCartPage.visibility = View.GONE
+                binding.textViewToplamFiyat.visibility = View.GONE
 
                 if(binding_nofood.root.parent != null){
                     val noFoodLayout = binding_nofood.root.parent as ViewGroup
@@ -41,8 +44,17 @@ class CartFragment : Fragment() {
                 binding.root.addView(binding_nofood.root)
 
             }else{
+                binding.textViewTotalPrice.visibility = View.VISIBLE
+                binding.buttonCartPage.visibility = View.VISIBLE
+                binding.textViewToplamFiyat.visibility = View.VISIBLE
+
                 val cartAdapter = CartAdapter(it,viewModel,requireActivity())
                 binding.recyclerViewCart.adapter = cartAdapter
+
+                viewModel.totalPrice.observe(viewLifecycleOwner){
+                    binding.textViewTotalPrice.text = "${it.toString()} ₺"
+                }
+
             }
         }
 

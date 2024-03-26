@@ -13,8 +13,10 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(var foodRepository: FoodRepository) : ViewModel(){
     var cardFoods = MutableLiveData<List<CartFood>>()
+    var totalPrice = MutableLiveData<Int>()
     init {
         getCartFoods()
+        getTotalPrice()
     }
     fun getCartFoods(){
         CoroutineScope(Dispatchers.Main).launch {
@@ -26,6 +28,13 @@ class CartViewModel @Inject constructor(var foodRepository: FoodRepository) : Vi
         CoroutineScope(Dispatchers.Main).launch {
             foodRepository.deleteCartFood(id,name)
             getCartFoods()
+            getTotalPrice()
+        }
+    }
+
+    fun getTotalPrice(){
+        CoroutineScope(Dispatchers.Main).launch {
+            totalPrice.value = foodRepository.getTotalPrice()
         }
     }
 }

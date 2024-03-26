@@ -111,4 +111,22 @@ class FoodDataSource(var foodDao: FoodDao,var appPref: AppPref) {
        }
        return@withContext foodList.filter { food: Food -> food.name.lowercase().startsWith(searchString)   }
    }
+
+    suspend fun getTotalPrice():Int = withContext(Dispatchers.IO){
+
+        var totalPrice = 0
+        var cartFoodList = listOf<CartFood>()
+
+        try {
+            cartFoodList = foodDao.getCartFoods("sermed_kerim").cartFoods
+        }catch (e:Exception){
+            return@withContext 0
+        }
+
+        for (food in cartFoodList){
+            totalPrice += food.price * food.number
+        }
+
+        return@withContext totalPrice
+    }
 }

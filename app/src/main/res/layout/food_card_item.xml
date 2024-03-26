@@ -7,26 +7,24 @@
     android:background="@color/backgroundColor"
     android:layout_marginTop="8dp"
     android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewFoodCard"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroundColor"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="190dp"
             android:layout_height="160dp"
-            android:background="@drawable/card_background7">
+            android:background="@drawable/card_background2">
 
             <ImageView
                 android:id="@+id/imageViewFoodCardItem"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
+                android:layout_marginStart="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/yemek" />
@@ -36,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="Ayran"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -60,8 +58,8 @@
                 style="@style/ToggleButton"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:checkable="true"
                 app:icon="@drawable/fav_card"
                 app:iconSize="16sp"
